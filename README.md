@@ -1,3 +1,5 @@
+ALLES MIT CHATGPT ERSTELLT
+
 Allgemeine Anleitung zur Erstellung einer Einzel-.exe mit PyInstaller
 
 (Optional) Virtuelle Umgebung anlegen und aktivieren
