@@ -1,25 +1,53 @@
-Virtuelle Umgebung aktivieren (falls noch nicht geschehen):
+Allgemeine Anleitung zur Erstellung einer Einzel-.exe mit PyInstaller
 
+(Optional) Virtuelle Umgebung anlegen und aktivieren
+Empfohlen, um Abhängigkeiten sauber zu halten, klappt unter Windows wie folgt:
 
-cd "C:\Users\lewec\Documents\Coding Experimente\first"
-.\venv\Scripts\activate
-PyInstaller (und setuptools) sicher installieren:
+bat
+Kopieren
+Bearbeiten
+cd <Dein_Projektordner>
+python -m venv venv
+venv\Scripts\activate
+Benötigte Pakete installieren
+Stelle sicher, dass Du im aktivierten Environment bist, und führe dann aus:
 
-
+bat
+Kopieren
+Bearbeiten
 python -m pip install pyinstaller setuptools
-PyInstaller per Modul aufrufen (ohne Mehrfach-Zeilen-Prompt):
+Einzel-.exe erstellen
+Navigiere in Dein Projektverzeichnis (dort liegen main.py, lst2025.py und krankenkassen.db) und starte PyInstaller mit einer einzigen Zeile:
 
+bat
+Kopieren
+Bearbeiten
+python -m PyInstaller ^
+  --name MeinRechner ^
+  --onefile ^
+  --windowed ^
+  --add-data "lst2025.py;." ^
+  --add-data "krankenkassen.db;." ^
+  main.py
+--name: Name der erzeugten EXE (ohne .exe)
 
-python -m PyInstaller --name BruttoNettoRechner --onefile --windowed --add-data "lst2025.py;." --add-data "krankenkassen.db;." main.py
-– Wichtig:
+--onefile: Alles in eine einzige ausführbare Datei packen
 
-Kein Backtick (\``) oder Caret (^`) nötig, wenn Du alles in einer Zeile schreibst.
+--windowed: GUI-Modus ohne Konsolenfenster
 
-Achte auf genau dieses Semikolon-Format ("lst2025.py;.") unter Windows.
+--add-data: Weitere Dateien (Quelle;Ziel) beilegen (unter Windows mit ;, unter macOS/Linux mit :)
 
+Ergebnis finden und testen
+Nach erfolgreichem Lauf liegt die EXE im Ordner
 
-.\dist\BruttoNettoRechner\BruttoNettoRechner.exe
-Deine einzelne, lauffähige EXE, die die eingebettete krankenkassen.db und lst2025.py korrekt lädt.
+php-template
+Kopieren
+Bearbeiten
+dist\<Name>\ <Name>.exe
+Kopiere diese EXE auf einen beliebigen Rechner – sie läuft dort ohne Python-Installation.
 
-Test
-Kopiere die .exe in einen anderen Ordner (oder auf einen anderen PC) – sie startet ohne Python-Installation.
+Tipp:
+
+Unter PowerShell kannst Du statt ^ auch einen Backtick ` verwenden.
+
+Möchtest Du ein Icon hinzufügen, hängst Du --icon=mein_icon.ico an den PyInstaller-Aufruf an.
